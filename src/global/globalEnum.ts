@@ -15,3 +15,8 @@ export enum Role {
     USER = "user",
     GUESS = "guess"
 }
+
+export enum MemberRole {
+    ADMIN = "admin",
+    MEMBER = "member",
+}

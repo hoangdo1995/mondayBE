@@ -2,13 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { UserInterceptor } from './interceptors/user.interceptor';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
   
   const app = await NestFactory.create(AppModule);
-
   // inject configService
   const configService = app.get(ConfigService);
 
@@ -20,11 +18,11 @@ async function bootstrap() {
       transform: true, // Tự động chuyển đổi kiểu dữ liệu
     }),
   );
-  // interceptor binding user info to request
-  // app.useGlobalInterceptors(new UserInterceptor());
-  // 
-  // get port value from .env
   try {
+    app.enableCors({
+      origin: ['http://localhost:3001','http://localhost:3000'], // Địa chỉ client,
+
+    })
     const port:number = configService.get<number>('PORT')||3000;
     await app.listen(port);
     logger.log(`Application is running on http://localhost:${port}`);

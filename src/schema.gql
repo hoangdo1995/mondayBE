@@ -1,0 +1,25 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Board {
+  name: String!
+  board_type: String!
+  template: String!
+  owner: String!
+  is_favorite: Boolean!
+}
+
+type Query {
+  getBoards: [Board!]!
+}
+
+type Mutation {
+  createBoard(createBoardDto: CreateBoardDto!): Board!
+}
+
+input CreateBoardDto {
+  name: String!
+  template: String!
+  owner: String!
+}

@@ -5,13 +5,14 @@ import { UsersControllers } from "./users.controllers";
 import { UsersService } from "./users.service";
 import { BcryptService } from "src/utilities/encryptions/bcrypt/bcrypt.service";
 import { JwtService } from "@nestjs/jwt";
+import { RedisModule } from "@nestjs-modules/ioredis";
 
 @Module(
     {
-        imports:[DatabaseModule],
-        providers:[...UsersProviders,UsersService, BcryptService,JwtService],
+        imports:[DatabaseModule, RedisModule],
+        providers:[...UsersProviders,UsersService, BcryptService,JwtService,RedisModule],
         controllers:[UsersControllers],
-        exports:[UsersService]
+        exports:[UsersService, RedisModule]
     }
 )
 export class UsersModule {

@@ -11,11 +11,6 @@ export class AuthMiddleware implements NestMiddleware {
         private readonly configService: ConfigService
   ){}
   async use(request: Request, response: Response, next: NextFunction) {
-    // console.log("middleWare",req);
-    // (req as any)['user'] = {role:"admin"}
-    // // return req;
-    // throw new UnauthorizedException('DEMO ')
-    // next();
     
     const authHeader = request.headers['authorization'];
     if (authHeader && authHeader.startsWith('Bearer')) 
@@ -26,7 +21,7 @@ export class AuthMiddleware implements NestMiddleware {
             const isValidateToken = await this.jwtService.verify(access_token,{secret:this.configService.get<string>('JWT_SECRET_KEY')});
             const decode = this.jwtService.decode(access_token);
             const {iat,exp, ...userInfo} = decode;
-            (request as any).user = userInfo;
+            (request as any).user = {access_token,...userInfo };
           } catch (error) {
             throw new UnauthorizedException("Expired or invalid token")
           }

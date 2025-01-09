@@ -29,7 +29,7 @@ export class AuthServices {
                 if(checkPass){
                     const payload = {
                         email:userInfo.email,
-                        name:checkExistEmail?.name,
+                        name:checkExistEmail?.full_name,
                         role: checkExistEmail.role
                     } 
                     return new LoginForm(
